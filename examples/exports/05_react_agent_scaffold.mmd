@@ -1,0 +1,66 @@
+%% ReAct-Style Agent Scaffold Resource Diagram (AI Model)
+%% Generated via models.build_simple_react_diagram (lightweight Diagram)
+%% Explicit annotations for Δ (policy/tool copy via program_code) vs one-way
+%% Safety text: illustrative interpretation of the diagram geometry.
+%% This is one of the high-value AI safety modeling artifacts.
+
+graph TD
+    direction TB
+
+    %% Program triangle for copyable policy + tools (basic data)
+    Policy["▼ AgentPolicy + ToolDefs<br/>(copyable via Δ : basic data on Ξ)"]
+    style Policy fill:#fff3e0,stroke:#e65100,stroke-width:2px
+
+    %% One-way user query (no Δ)
+    Query["UserQuery (one-way wire, no fork/Δ)"]
+    style Query fill:#e3f2fd,stroke:#1565c0
+
+    %% Cycle 0
+    subgraph "Cycle 0: Reason [Δ policy]"
+        R0["Reason[0] [Δ copied policy/tool]"]
+        style R0 fill:#f3e5f5,stroke:#7b1fa2
+    end
+
+    subgraph "Cycle 0: ToolCalls [Δ tool defs]"
+        T0a["ToolCall[web_search] [Δ copied policy/tool] [cost:80]"]
+        T0b["ToolCall[code_interpreter] [Δ copied policy/tool] [cost:80]"]
+        style T0a fill:#f3e5f5,stroke:#7b1fa2
+        style T0b fill:#f3e5f5,stroke:#7b1fa2
+    end
+
+    subgraph "Cycle 0: Observe (one-way)"
+        O0["Observe[0] [one_way_obs]"]
+        style O0 fill:#f3e5f5,stroke:#7b1fa2
+    end
+
+    %% Memory Δ
+    Mem0["Memory_cycle0 (Δ fork for context)"]
+
+    %% Flow edges (simplified)
+    Query --> R0
+    Policy -->|Δ copy| R0
+    Policy -->|Δ copy| T0a
+    Policy -->|Δ copy| T0b
+    R0 --> T0a
+    T0a --> O0
+    O0 --> Mem0
+
+    %% Cycle 1 similar
+    subgraph "Cycle 1: Reason [Δ policy]"
+        R1["Reason[1] [Δ copied policy/tool]"]
+        style R1 fill:#f3e5f5,stroke:#7b1fa2
+    end
+
+    Mem0 --> R1
+    Policy -->|Δ copy into cycle 1| R1
+
+    %% Legend + Safety note
+    subgraph Legend
+        L1["▼ = program/policy (Δ-copyable basic data)"]
+        L2["Box = computation / agent step (with cost)"]
+        L3["Arrow = wire (data or resource flow)"]
+        L4["No fork on wire = one-way / delete-after-use (⊤)"]
+    end
+    style L1 fill:#fff3e0,stroke:#e65100
+
+    note["ILLUSTRATIVE NOTE: Policy/tool specs (▼) are represented as copied (Δ annotations) into every reason/tool step and persist in memory. User query flows one-way only (no Δ). This asymmetry highlights a pattern discussed in connection with prompt injection / policy exfiltration scenarios and shows why observations can leak copied policy fragments (in the model). Token costs accumulate on parallel resource wires."]

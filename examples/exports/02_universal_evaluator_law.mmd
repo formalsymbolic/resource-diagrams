@@ -1,0 +1,20 @@
+%% Universal Evaluator Law (Paper I, Definition 4.1, equation (11), p.17)
+%% Generated programmatically via MermaidRenderer.render_evaluator_law
+%% The triangle below the box is a program p ∈ Ξ (basic data).
+%% The box u is the universal evaluator.
+
+graph TD
+    subgraph "f = {p}   (the defining equation)"
+        direction TB
+
+        L1["L"] -->|id_L| U1["u^L_M"]
+        L2["L"] -->|"▼ my_program<br/>(program as data)"| U1
+        U1 --> M1["M"]
+
+        style U1 fill:#e8f4f8,stroke:#333
+
+        L3["L"] -->|"f (ordinary box)"| M2["M"]
+    end
+
+    note["{p} ≔ u ∘ (p ⊗ id)   or simply  {p} in paper notation"]
+
