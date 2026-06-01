@@ -1,0 +1,24 @@
+%% Basic String Diagrams (Paper I, Figure 3, p.5)
+%% Generated programmatically via MermaidRenderer.render_basic_monoidal
+%% Monoidal composition (sequential + parallel) and the unit I
+
+graph TD
+    subgraph "Sequential Composition  f ; g : A → C"
+        A1["A"] -->|"f"| B1["B"]
+        B1 -->|"g"| C1["C"]
+    end
+
+    subgraph "Parallel (Tensor)  f ⊗ t : A⊗L → B⊗M"
+        A2["A"] -->|"f"| B2["B"]
+        L2["L"] -->|"t"| M2["M"]
+    end
+
+    subgraph "Elements (programs/values) as triangles (Paper I p.6)"
+        direction TB
+        I1((I)) -.-> T1["▼ p  (program triangle)"]
+        T1 --> X1["Ξ"]
+    end
+
+    subgraph "Unit laws (wires can be elided)"
+        X2["A"] -->|id| X3["A"]
+    end

@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      - name: Lint with ruff
+        run: ruff check .
+      - name: Format check with ruff
+        run: ruff format --check .
+      - name: Type check with mypy
+        run: mypy src
+      - name: Test with pytest
+        run: pytest
+      - name: Packaging hygiene / build validation (sdist + wheel, no compiled artifacts)
+        run: |
+          python -m pip install build
+          python -m build --sdist --wheel
+          # Quick sanity: ensure no __pycache__ or .pyc leaked into distributions
+          python -c "
+          import zipfile, tarfile, os
+          from pathlib import Path
+          dist = Path('dist')
+          bad = []
+          for f in dist.iterdir():
+              if f.suffix == '.whl':
+                  with zipfile.ZipFile(f) as z:
+                      bad += [n for n in z.namelist() if '__pycache__' in n or n.endswith('.pyc')]
+              elif f.suffix == '.tar.gz':
+                  with tarfile.open(f, 'r:gz') as t:
+                      bad += [m.name for m in t.getmembers() if '__pycache__' in m.name or m.name.endswith('.pyc')]
+          if bad:
+              print('ERROR: compiled artifacts found in dist:', bad)
+              exit(1)
+          print('Packaging check passed: no __pycache__ or .pyc in sdist/wheel.')
+          "

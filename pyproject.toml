@@ -1,0 +1,85 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "resource-diagrams"
+version = "0.1.0"
+description = "Diagrammatic analysis of resources in AI systems using string diagrams and monoidal categories"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Resource Diagrams Contributors"}
+]
+# URLs point to the canonical repository location.
+keywords = [
+    "ai-safety",
+    "string-diagrams",
+    "categorical",
+    "formal-methods",
+    "oversight",
+    "security",
+    "agents",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Security",
+]
+
+[project.optional-dependencies]
+# No optional extras defined for v0.1. The core library is fully self-contained
+# (pure stdlib + no required services). Future work on LLM-assisted features
+# is tracked in ROADMAP.md.
+dev = [
+    "pytest>=8.0",
+    "mypy>=1.10",
+    "ruff>=0.4",
+]
+
+[project.urls]
+Homepage = "https://github.com/resource-diagrams/resource-diagrams"
+Repository = "https://github.com/resource-diagrams/resource-diagrams"
+Documentation = "https://github.com/resource-diagrams/resource-diagrams#readme"
+Issues = "https://github.com/resource-diagrams/resource-diagrams/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.exclude-package-data]
+# Packaging hygiene: never ship compiled Python artifacts (even if accidentally
+# present in the src tree). Complements .gitignore. *.py files + py.typed are
+# included by default for this typed package.
+"*" = ["__pycache__/*", "*.pyc", "*.pyo"]
+
+[tool.mypy]
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+files = ["src"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.ruff.format]
+# Explicit configuration to match `ruff format .` usage documented in
+# DEVELOPMENT.md and CONTRIBUTING.md. Keeps formatting hygiene consistent.
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-q"

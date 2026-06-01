@@ -1,0 +1,26 @@
+%% Agent Policy Fixed Point via Monoidal Computer (AI Model)
+%% Uses render_fixed_point_construction on an agent policy "p"
+%% Demonstrates self-reference in agent scaffolds (e.g. self-modifying or reflective agents)
+%% Generated via MermaidRenderer + models layer pattern
+
+graph TD
+    subgraph "The Φ Self-Application Transformer (built from Δ + u) applied to agent policy"
+        direction TB
+        XI1["Ξ (policy space)"] -->|"▼ agent_policy_v1<br/>(copied via Δ)"| COPY["Δ"]
+        COPY --> P1["▼ agent_policy_v1"]
+        COPY --> P2["▼ agent_policy_v1"]
+        P1 --> U["u (universal evaluator)"]
+        P2 --> U
+        U --> RES["{agent_policy_v1}(agent_policy_v1)"]
+    end
+
+    subgraph "Result: Self-referential agent policy (fixed point)"
+        FP["Φ ; agent_policy   yields e such that<br/>{agent_policy}(e) = e  (reflective fixed point)"]
+    end
+
+    note1["In AI terms: because policy is basic data, the agent can 'copy its own policy' (Δ) and feed it to itself via evaluator. Enables modeling of self-improving / reflective / quining agents."]
+    note2["Safety relevance: the same mechanism that gives recursion theorem also gives a diagrammatic handle on self-modification surfaces and the difficulty of containing agents that can duplicate their own goals/policies."]
+
+    %% Resource annotation for AI context
+    Tokens["ResourceWire: token_budget (parallel, depleted by self-application)"]
+    style Tokens fill:#fff8e1,stroke:#f57f17

@@ -1,0 +1,13 @@
+# Resource Diagrams
+
+Resource Diagrams is a self-contained Python library for modeling AI agent systems with string diagrams grounded in monoidal category theory. It draws on ideas from Dusko Pavlovic’s Monoidal Computer framework and provides practical tools for representing policy copying, tool use, memory, and information flow in agent scaffolds.
+
+The foundation of the library is a faithful realization of the key constructions from Monoidal Computer Paper I: objects and morphisms, data services modeled as commutative comonoids (with explicit copy Δ and delete ⊤ operations, and the crucial property that programs-as-data support free duplication), universal and partial evaluators, and the diagrammatic fixed-point construction. These are provided together with a diagrams construction layer (StringDiagram trees built from Triangle, Fork, Stem, Box, Wire, and the standard monoidal combinators) and a models layer offering ergonomic builders for common patterns in contemporary agent systems.
+
+The library makes it possible to construct, render, and structurally analyze diagrams in which the distinction between copyable program elements and linear data channels is first-class. This yields both human-readable visual representations (via high-quality Mermaid output) and machine-readable structural properties. The approach is grounded in rigorous categorical semantics while remaining fully executable and usable without external dependencies.
+
+The project maintains strong open-source practices, including semantic versioning, comprehensive testing of the underlying categorical laws, continuous integration with strict type checking, detailed governance documentation, and a CITATION.cff file. All core functionality is implemented in pure Python.
+
+The primary motivation is to explore whether the string-diagrammatic methods developed in the Monoidal Computer framework can be made useful for understanding and reasoning about the structure of modern AI systems, particularly those involving loops, resource accounting, self-reference, and complex information flow. Early results suggest that the formalism is especially well-suited to making certain distinctions in agent architectures precise and visually inspectable.
+
+Further development would benefit from additional resources to expand the catalog of modeled patterns, improve the ergonomics of diagram construction, deepen the structural analysis capabilities, and produce higher-quality examples and documentation. Such work would advance the broader goal of bringing rigorous, compositional methods to the analysis of increasingly sophisticated computational systems.

@@ -1,0 +1,24 @@
+%% Data Services — Commutative Comonoid (Paper I §3, Paper III §2.2)
+%% Generated programmatically via MermaidRenderer.render_data_service_comonoid
+%% The "classical data" structure that makes programs copyable/deletable.
+%% This is what distinguishes the model and enables the nice diagrammatic proofs.
+
+graph TD
+    subgraph "Copy  Δ : A → A ⊗ A"
+        A1["A"] -->|Δ| Fork["fork (black dot)"]
+        Fork --> A2["A"]
+        Fork --> A3["A"]
+    end
+
+    subgraph "Delete  ⊤ : A → I"
+        A4["A"] -->|⊤| Stem["stem"]
+        Stem --> I1["I"]
+    end
+
+    subgraph "Key Property for Programs (basic data)"
+        P["▼ p  (program)"] -->|"δ ∘ p = p ⊗ p"| P1["▼ p"]
+        P --> P2["▼ p"]
+    end
+
+    note["All morphisms in the 'data service' subcategory C• preserve Δ and ⊤.<br/>This is what makes the subcategory cartesian (products)."]
+

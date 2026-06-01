@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - name: "Resource Diagrams Contributors"
+title: "Resource Diagrams: Diagrammatic analysis of resources and information flow in computational systems"
+version: 0.1.0
+date-released: 2026-06-01
+url: "https://github.com/resource-diagrams/resource-diagrams"
+repository-code: "https://github.com/resource-diagrams/resource-diagrams"
+license: MIT
+abstract: >-
+  Resource Diagrams is a Python library for representing and reasoning about
+  computational systems — particularly AI agents and scaffolds — using string
+  diagrams grounded in monoidal category theory. The implementation draws
+  directly from the Monoidal Computer framework (Pavlovic et al.) and provides
+  both faithful reproductions of the core formal constructions and higher-level
+  modeling idioms for resource and information-flow analysis.
+keywords:
+  - monoidal categories
+  - string diagrams
+  - AI safety
+  - formal methods
+  - categorical semantics
+  - resource modeling
+preferred-citation:
+  type: software
+  authors:
+    - name: "Resource Diagrams Contributors"
+  title: "Resource Diagrams"
+  year: 2026
+  url: "https://github.com/resource-diagrams/resource-diagrams"

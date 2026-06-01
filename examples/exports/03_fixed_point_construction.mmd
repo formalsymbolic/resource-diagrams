@@ -1,0 +1,23 @@
+%% Fixed Point Construction via Copying Programs-as-Data
+%% Paper I, Lemma 6.2 + Proposition 6.1, p.25-26
+%% Generated programmatically via MermaidRenderer.render_fixed_point_construction
+%% The entire proof is "copy the program triangle twice and plug one copy into the evaluator".
+
+graph TD
+    subgraph "The Φ Self-Application Transformer (built from Δ + u)"
+        direction TB
+        XI1["Ξ"] -->|"▼ succ<br/>(copied via Δ)"| COPY["Δ"]
+        COPY --> P1["▼ succ"]
+        COPY --> P2["▼ succ"]
+        P1 --> U["u (universal evaluator)"]
+        P2 --> U
+        U --> RES["{succ}(succ)"]
+    end
+
+    subgraph "Result: Every computation has a fixed point"
+        FP["Φ ; succ   has the property<br/>{Φ ; succ} = {p} ∘ {Φ ; succ}"]
+    end
+
+    note1["Crucial axiom used: programs are *basic data*<br/>δ ∘ p = p ⊗ p   (they can be freely duplicated)"]
+    note2["This is why the graphical proof is short and intuitive<br/>compared with classical Gödel-numbering diagonal arguments."]
+
